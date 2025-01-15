@@ -1,0 +1,16 @@
+Username - Preetam
+Password - zOEAeScPU2HVY8Jb
+
+Connection string1 - mongodb+srv://Preetam:MongoDB_demo@cluster0.u7r6o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+//To free up port 8000
+netstat -ano | findstr :8000
+taskkill /PID write_pid_here /F
+
+
+
+//To overcome mongodb connection problem, use older version
+npm install mongoose@7.3.0
+
+

@@ -1,0 +1,40 @@
+.Main{
+    align-items: center;
+    height: 65vh;
+    width: 330px;
+    margin: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 160px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+}
+
+.Label{
+    padding : 15px;
+    color: #6236FF;
+    font-weight: 600;
+}
+
+.Input{
+    padding: 8px;
+    margin: 5px 0px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    width: 100%;
+}
+.error{
+    color: red;
+    margin-top: -5px;
+}
+
+.button{
+    width: 100%;
+    padding: 8px;
+    font-size: 20px;
+    background-color: #6236FF;
+    border-radius: 10px;
+    border: 0;
+    color: white;
+    margin-top: 8px;
+}

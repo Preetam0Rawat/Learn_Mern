@@ -1,0 +1,9 @@
+/GET /user       -> get all user's data
+
+/GET /user/4     -> get user data with id 4 
+
+/POST /user      -> create a new user
+
+/PATCH /user5    -> update data of user with id 5
+
+/DELETE /user/5  -> delete user with id 5
