@@ -3,6 +3,8 @@
 // The import, used in this file, uses ES Module (ESM)
 import express from 'express'
 import mongoose from 'mongoose'
+import userRoutes from './routes/user.js'
+import bodyParser from 'body-parser'
 
 const app = express()
 const PORT = 8000
@@ -11,5 +13,9 @@ const PORT = 8000
 mongoose.connect("mongodb+srv://Preetam:zOEAeScPU2HVY8Jb@cluster0.u7r6o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 .then(()=> console.log("Database connection successful"))
 .catch((error)=> console.log("Error occures while connecting", error))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
+app.use('/user', userRoutes)
+ 
 app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))

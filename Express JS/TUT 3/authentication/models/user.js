@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
         type : String,
         required : true,
     }
-}, {timeStamps : true})     // timesatmp is used in databbse for createdAt and updatedAt information
+}, {timestamps : true})     // timesatmp is used in databbse for createdAt and updatedAt information
 
 
 export default mongoose.model("User", userSchema)
