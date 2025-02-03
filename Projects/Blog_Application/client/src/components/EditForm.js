@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ChipInput from 'material-ui-chip-input'
 import FileBase from 'react-file-base64'
-const Form = () => {
+const EditForm = () => {
 
     const [formData, setFormData] = useState({
         title: '',
@@ -35,7 +35,7 @@ const Form = () => {
                 justifyContent='center'
                 alignItems='center'
             >
-                <Typography fontSize='40px' fontWeight='bold'>Create Blog</Typography>
+                <Typography fontSize='40px' fontWeight='bold'>Edit Blog</Typography>
                 <Box
                     display='flex'
                     flexDirection='column'
@@ -85,11 +85,11 @@ const Form = () => {
                             backgroundColor: 'black'
                         }}
                         onClick={handleSubmit}
-                    >Create</Button>
+                    >Edit</Button>
                 </Box>
             </Box>
             =        </div>
     )
 }
 
-export default Form
+export default EditForm

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { Link } from 'react-router'
 import siimage from '../images/signin.png'
+import { Link } from 'react-router-dom'
 const Signin = () => {
     const [formData, setFormData] = useState({
         email: "",

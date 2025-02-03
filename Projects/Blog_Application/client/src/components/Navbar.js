@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Button, Modal, Typography } from '@mui/material'
-
+import Form from './Form'
+import {useNavigate} from 'react-router-dom'
 const Navbar = () => {
 
     const style = {
@@ -14,11 +15,20 @@ const Navbar = () => {
         boxShadow: 24,
         p: 4,
       };
+  
+    
+    
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    
+    
+    const navigate = useNavigate()
+    const handleSignin = ()=>{
+      navigate('/signin')
+    }
 
-      const [open, setOpen] = React.useState(false);
-      const handleOpen = () => setOpen(true);
-      const handleClose = () => setOpen(false);
-
+    
     return (
         <div>
             <Box sx={{
@@ -55,8 +65,10 @@ const Navbar = () => {
                             color: 'black'
                         }
                     }}
-                        variant='contained'>Signin
-
+                        variant='contained'
+                        onClick={handleSignin}    
+                    >Signin
+                        
                     </Button>
                 </Box>
             </Box>
@@ -68,12 +80,7 @@ const Navbar = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <Form/>
                 </Box>
             </Modal>
         </div>

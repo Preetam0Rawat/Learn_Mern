@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import siimage from '../images/signin.png'
 
 const Signup = () => {
