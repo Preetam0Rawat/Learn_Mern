@@ -9,8 +9,11 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Modal } from '@mui/material';
 import EditForm from './EditForm';
+import { deleteBlog } from '../api/index.js';
 
-export default function Blog() {
+//import {useNavigate} from 'react-router-dom';
+
+export default function Blog({data}) {
 
 
   const style = {
@@ -31,26 +34,44 @@ export default function Blog() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //const navigate = useNavigate()
+
+  const handleDelete = async() => {
+    try {
+      const response = await deleteBlog(data._id)
+      console.log("blog deleted successfully", response.data)
+      if(response.status === 200){
+        window.location.reload()
+      }
+      //navigate('/')      not working
+    } catch (error) {
+        console.log("Deletion failed" , error)
+      }
+  }
+
 
   return (
     <>
       <Card sx={{ maxWidth: 345, borderRadius: 6, margin: 6 }}>
         <CardMedia
           sx={{ height: 240 }}
-          image="https://upload.wikimedia.org/wikipedia/commons/7/75/Lizard_namely_Oriental_Garden_Lizard.jpg"
-          title="green iguana"
+          image= {data.selectedFile}
+          title="image"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+           {data.title}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {data.description}
+          </Typography>
+          <Typography color='Text.secondary'
+          sx = {{fontSize : '20px', lineHeight : '25px', margin : '10px 0', fontWeight : '400'}}>
+            {data.tags.map((tag)=> `#${tag}`)}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small"><DeleteIcon /></Button>
+          <Button size="small" onClick={handleDelete}><DeleteIcon /></Button>
           <Button size="small" onClick={handleOpen}><EditIcon /></Button>
         </CardActions>
       </Card>
@@ -62,7 +83,7 @@ export default function Blog() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <EditForm/>
+          <EditForm data ={data}/>
         </Box>
       </Modal>
     </>

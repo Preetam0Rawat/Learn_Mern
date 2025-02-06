@@ -5,6 +5,8 @@ import bodyParser from 'body-parser'
 import userRoutes from './routes/user.js'
 import blogRoutes from './routes/blog.js'
 
+import cors from 'cors'
+
 const app = express()
 
 //database connection
@@ -13,8 +15,11 @@ mongoose.connect("mongodb+srv://Preetam:zOEAeScPU2HVY8Jb@cluster0.u7r6o.mongodb.
 .catch((error)=> console.log("Error occures while connecting", error))
 
 //middlewares
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())                         //As a mmidlle ware it  parses(convert json to object) before the data with post request reaches the backend router/controller.
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors({
+    origin : 'http://localhost:3000'
+}))
 
 
 //routes

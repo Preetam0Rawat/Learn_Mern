@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import siimage from '../images/signin.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { signin } from '../api'
 const Signin = () => {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     })
+
+    const navigate = useNavigate()
 
     const handleInputChange = (e) =>{
         const {name, value} = e.target;
@@ -15,8 +18,17 @@ const Signin = () => {
         }))
     }
 
-    const handleSignin = () =>{
-        console.log(formData)
+    const handleSignin = async(e) =>{
+        try {
+            const response = await signin(formData)
+            console.log("Singnin successful", response.data)
+            localStorage.setItem("author", response.data.result._id.toString())
+            navigate('/')
+        } catch (error) {
+            console.log("Signin failed: ", error)
+            setFormData({email :'', password : ''})
+        }
+       
     }
 
     return (

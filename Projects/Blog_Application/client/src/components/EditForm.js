@@ -2,22 +2,29 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import ChipInput from 'material-ui-chip-input'
 import FileBase from 'react-file-base64'
-const EditForm = () => {
+import { editBlog } from '../api'
+const EditForm = ({data}) => {
 
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        selectedFile: '',
+        title: data.title,
+        description: data.description,
+        selectedFile: data.selectedFile,
 
     })
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState(data.tags)
 
     const handleAdd = (tag) => setTags([...tags, tag])
     const handleDelete = (tagTodelete) => setTags(tags.filter((tag) => tag !== tagTodelete))
 
-    const handleSubmit = () => {
-        console.log(formData)
-        console.log(tags)
+    const handleSubmit = async() => {
+       try {
+        const id = data._id
+         const response = await editBlog(id, {...formData, tags})
+         console.log("Blog updated successfuly", response.data)
+        window.location.reload()
+       } catch (error) {
+         console.log("Failed ", error.message)
+       }
     }
 
     const handleInputChange = (e) => {
@@ -88,7 +95,7 @@ const EditForm = () => {
                     >Edit</Button>
                 </Box>
             </Box>
-            =        </div>
+          </div>
     )
 }
 

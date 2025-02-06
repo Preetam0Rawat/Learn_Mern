@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import siimage from '../images/signin.png'
+import { signup } from '../api/index.js'
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -11,15 +12,26 @@ const Signup = () => {
         confirmPassword: ""
     })
 
-    const handleInputChange = (e) =>{
-        const {name, value} = e.target;
-        setFormData(prevState=>({
-            ...prevState, [name] : value
+    const navigate = useNavigate()
+
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState, [name]: value
         }))
     }
 
-    const handleSignup = () =>{
-        console.log(formData)
+    const handleSignup = async(e) => {
+        try {
+            const response = await signup(formData)
+            console.log("Singnnup successful", response.data)
+            navigate('/signin')
+        } catch (error) {
+            console.log("Signuup failed: ", error)
+            setFormData({ name: '', email: '', password: '', confirmPassword: '' })
+        }
+
     }
 
     return (
@@ -80,7 +92,7 @@ const Signup = () => {
                             backgroundColor: 'black'
                         }}
                         onClick={handleSignup}>
-                            Sign up
+                        Sign up
                     </Button>
                 </Box>
             </Box>

@@ -2,9 +2,11 @@ import Blog from "../models/blog.js"
 import User from "../models/user.js";
 
 export const createBlog = async(req, res) =>{
+
     const {title, description, author, selectedFile, tags} = req.body;
 
     try{
+
            const existing_user = await User.findById(author)
 
            if(!existing_user){
@@ -38,18 +40,21 @@ export const getAllBlogs = async(req, res) =>{
     }
 }
 
-
-export const getBlogById = async(req, res) =>{
-    const {id} = req.params
-    try{
-        const blog = await Blog.findById(id)
-        if(!blog){
-            return res.status(404).json({mssg : "Blog not found"})
+export const getBlogBySearch = async(req, res) =>{
+    const {searchQuery, tags} = req.query
+    try {
+        const title = new RegExp(searchQuery, 'i')
+        let blogs;
+        if(tags){
+            blogs = await Blog.find({$or : [{title}, {tags: {$in: tags.split(',')}}]})
         }
-        return res.status(200).json(blog)
-        
+        else{
+            blogs  = await Blog.find({title})
+        }
+
+        return res.status(200).json({blogs})
     } catch (error) {
-        return res.status(500).json({mssg : "Error occured in getting the blog by ID", error})
+        return res.status(404).json({mssg : "Search fialed"})
     }
 }
 
@@ -69,6 +74,7 @@ export const updateBlog = async(req, res) =>{
 
 export const deleteBlog = async(req, res) =>{
     const {id} = req.params
+
     try{
         await Blog.findByIdAndDelete(id)
        
